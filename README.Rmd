@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+devtools::load_all()
 ```
 
 # socialsust
@@ -28,7 +29,7 @@ You can install the development version of socialsust from [GitHub](https://gith
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("smaxand/bivquant")
+devtools::install_github("RMKruse/bivquant")
 ```
 
 ## Example
@@ -36,6 +37,7 @@ devtools::install_github("smaxand/bivquant")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-# library(bivquant)
-## basic example code
+data("nutritionpoverty")
+bivqfun(data = nutritionpoverty, var1="NUval", var2="INval", tau = 0.25)
+
 ```
