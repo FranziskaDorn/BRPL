@@ -4,7 +4,20 @@
 \alias{bivqfun}
 \title{Main File for the wrapper}
 \usage{
-bivqfun(quant1, quant2)
+bivqfun(data, var1, var2, tau = 0.5, nalpha = 100, plot = TRUE)
+}
+\arguments{
+\item{data}{data source of interest. Has to be a data.frame.}
+
+\item{var1}{Variable of interest. Has to be a character.}
+
+\item{var2}{Variable of interest. Has to be a character.}
+
+\item{tau}{Minimal possible value for given variable.}
+
+\item{nalpha}{Minimal possible value for given variable.}
+
+\item{plot}{Logical. When \code{TRUE} a graphic of the results will be produced.}
 }
 \description{
 Main File for the wrapper

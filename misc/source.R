@@ -10,45 +10,9 @@ library(tibble)
 library(tidyr)
 
 
-# data set control variables (from copula paper)
-d <- readRDS("data_co2_gini_02_21.RDS")
-d <- as_tibble(d)
-data <- rename(d,  country = Country, date=Year)
-data$country[data$country=='yemen'] <- 'yemen, rep.'
-data$country[data$country=='united states of america'] <- 'united states'
-data$country[data$country=='venezuela'] <- 'venezuela, rb'
-data$country[data$country=='slovakia'] <- 'slovak republic'
-data$country[data$country=='russia'] <- 'russian federation'
-data$country[data$country=='laos'] <- 'lao pdr'
-data$country[data$country=='kyrgyzstan'] <- 'kyrgyz republic'
-data$country[data$country=='korea south'] <- 'korea, rep.'
-data$country[data$country=='iran'] <- 'iran, islamic rep.'
-data$country[data$country=='gambia'] <- 'gambia, the'
-data$country[data$country=='egypt'] <- 'egypt, arab rep.'
+load("data/total.Rda")
+load("data/total1.Rda")
 
-d2<- read.csv("001_allIndicatorsValuesAndRatios_1992-2015_03oct2021.csv")
-d2$country<-tolower(d2$country)
-d2 <- as.data.frame(d2)
-
-#use only certain variables
-#how to deal with the threshold boundary, if included then multiple rows for sears as different indicators have different thresholds?
-#
-m<- c("country", "date", "indicator", "value")
-
-d3<- d2[m]
-
-
-
-#change format, con only include two values? thresholds cannot be included otherwise row number stays the same
-d3<- d3 %>% spread(indicator,value)
-
-
-total <- merge(data,d3,by=c("date","country"))
-
-
-#########################
-#estimating quantile line
-#########################
 set.seed(5000)
 epsilon <- .Machine$double.eps # hier wird die kleinstmögliche Zahl gespeichert, damit nicht durch 0 geteilt wird
 
@@ -115,7 +79,7 @@ tau <- 0.43
 # Intervall von 0 bis 43% und 43% bis 100%
 for(i in 1:length(alphas)){
   alpha <- alphas[i]
-  rsample <- pmin((1-total1$y1) / (cos(alpha) + epsilon), (1-total1$y2) / (sin(alpha) + epsilon) ) # neuer Code: ergänzt um "epsilon" von oben, um die Division durch Null zu vermeiden, winzige Abweichung von Null verhindert, dass NA entstehen
+  rsample <- pmin((1-total1$y1) / (cos(alpha) + .Machine$double.eps), (1-total1$y2) / (sin(alpha) + .Machine$double.eps) ) # neuer Code: ergänzt um "epsilon" von oben, um die Division durch Null zu vermeiden, winzige Abweichung von Null verhindert, dass NA entstehen
   # Isoquanten Punkte
   r <- quantile(rsample, 1-tau)
   q <- c(1-r*cos(alpha), 1-r*sin(alpha))
