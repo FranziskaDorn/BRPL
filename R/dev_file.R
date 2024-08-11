@@ -83,8 +83,6 @@ if (plot) {
   lines(plvar2[, 1], plvar2[, 2], col = "black", lwd = 3)
 
 
-data("nutritionpoverty")
-test <- bivqfun(data = nutritionpoverty, var1="NUval", var2="INval", tau = 0.25)
-plot(test)
-
-
+  data("nutritionpoverty")
+  test <- bivqfun(data = nutritionpoverty, var1="NUval", var2="INval", tau = 0.25)
+  plot(test)
