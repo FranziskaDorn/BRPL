@@ -68,7 +68,9 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100, plot = TRUE) {
 
   if (plot) {
     dbvar2 <- subset(data, abovevar2 == 0)
+    View(dbvar2)
     davar2 <- subset(data, abovevar2 == 1)
+    View(davar2)
 
     plot(
       plvar2[, 1], plvar2[, 2], type = "l", col = "black", lwd = 3,
