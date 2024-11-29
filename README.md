@@ -20,7 +20,7 @@ You can install the development version of socialsust from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("RMKruse/bivquant")
+devtools::install_github("RMKruse/bivquant-discriminant-package")
 ```
 
 ## Example
