@@ -21,7 +21,7 @@ prepquant <- function(data, tau, ecdfvar1, ecdfvar2, nalpha){
   for(i in 1:length(alphas)){
     alpha <- alphas[i]
     rsample <- pmin((1-data$y1) / (cos(alpha) + .Machine$double.eps),
-                    (1-data$y2) / (sin(alpha) + .Machine$double.eps) ) # neuer Code: ergänzt um ".Machine$double.eps" von oben, um die Division durch Null zu vermeiden, winzige Abweichung von Null verhindert, dass NA entstehen
+                    (1-data$y2) / (sin(alpha) + .Machine$double.eps) ) # neuer Code: erg√§nzt um ".Machine$double.eps" von oben, um die Division durch Null zu vermeiden, winzige Abweichung von Null verhindert, dass NA entstehen
     # Isoquanten Punkte
     r <- quantile(rsample, 1-tau)
     q <- c(1-r*cos(alpha), 1-r*sin(alpha))

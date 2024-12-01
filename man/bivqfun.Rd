@@ -2,23 +2,51 @@
 % Please edit documentation in R/main.R
 \name{bivqfun}
 \alias{bivqfun}
-\title{Main File for the wrapper}
+\title{Bivariate Quantile Function}
 \usage{
-bivqfun(data, var1, var2, tau = 0.5, nalpha = 100, plot = TRUE)
+bivqfun(data, var1, var2, tau = 0.5, nalpha = 100)
 }
 \arguments{
-\item{data}{data source of interest. Has to be a data.frame.}
+\item{data}{A \code{data.frame} containing the input data.}
 
-\item{var1}{Variable of interest. Has to be a character.}
+\item{var1}{A character string specifying the name of the first variable in the dataset.}
 
-\item{var2}{Variable of interest. Has to be a character.}
+\item{var2}{A character string specifying the name of the second variable in the dataset.}
 
-\item{tau}{Minimal possible value for given variable.}
+\item{tau}{A numeric value (default = 0.5) specifying the quantile level to compute. Must be a double.}
 
-\item{nalpha}{Minimal possible value for given variable.}
-
-\item{plot}{Logical. When \code{TRUE} a graphic of the results will be produced.}
+\item{nalpha}{An integer specifying the number of steps for discretizing the quantile levels (default = 100).}
+}
+\value{
+A list of class \code{"bivq"} containing the following components:
+\itemize{
+\item \code{data}: The input dataset with an additional \code{indicator} column, indicating if a observation is above (1) or below (0) the caluclated iso-quant line.
+\item \code{tau}: The quantile level used.
+\item \code{plvar2}: The bivariate quantile curve points for \code{var2}.
+\item \code{faz}: The extreme values for the quantile curve on the lower end.
+\item \code{faa}: The extreme values for the quantile curve on the upper end.
+\item \code{var1}: The name of the first variable.
+\item \code{var2}: The name of the second variable.
+}
 }
 \description{
-Main File for the wrapper
+This function calculates the bivariate quantile function for two variables in a given dataset. It computes the empirical cumulative distribution functions (ECDFs) for each variable, standardizes the data, and derives the bivariate quantile curve. Additionally, it creates an indicator variable to classify points relative to the quantile curve.
+}
+\details{
+This function performs the following steps:
+\itemize{
+\item Validates the input arguments.
+\item Computes the empirical cumulative distribution functions (ECDFs) for \code{var1} and \code{var2} using a helper function \code{myecdf}.
+\item Standardizes the two variables to the range \link{0, 1}.
+\item Prepares the data and calculates intermediate values using a helper function \code{prepquant}.
+\item Creates interpolation functions to map between the standardized variables and their original scales.
+\item Generates the bivariate quantile curve, expressed as a sequence of values for \code{var1} and \code{var2}.
+\item Constructs an indicator variable in the dataset to classify observations based on their position relative to the quantile curve.
+}
+}
+\examples{
+# Example dataset
+data("nutritionpoverty")
+bivqfun(data = nutritionpoverty, var1="NUval", var2="INval", tau = 0.25)
+
 }

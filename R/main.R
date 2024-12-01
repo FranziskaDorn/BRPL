@@ -1,3 +1,40 @@
+#' Bivariate Quantile Function
+#'
+#' This function calculates the bivariate quantile function for two variables in a given dataset. It computes the empirical cumulative distribution functions (ECDFs) for each variable, standardizes the data, and derives the bivariate quantile curve. Additionally, it creates an indicator variable to classify points relative to the quantile curve.
+#'
+#' @param data A `data.frame` containing the input data.
+#' @param var1 A character string specifying the name of the first variable in the dataset.
+#' @param var2 A character string specifying the name of the second variable in the dataset.
+#' @param tau A numeric value (default = 0.5) specifying the quantile level to compute. Must be a double.
+#' @param nalpha An integer specifying the number of steps for discretizing the quantile levels (default = 100).
+#'
+#' @details
+#' This function performs the following steps:
+#' - Validates the input arguments.
+#' - Computes the empirical cumulative distribution functions (ECDFs) for `var1` and `var2` using a helper function `myecdf`.
+#' - Standardizes the two variables to the range [0, 1].
+#' - Prepares the data and calculates intermediate values using a helper function `prepquant`.
+#' - Creates interpolation functions to map between the standardized variables and their original scales.
+#' - Generates the bivariate quantile curve, expressed as a sequence of values for `var1` and `var2`.
+#' - Constructs an indicator variable in the dataset to classify observations based on their position relative to the quantile curve.
+#'
+#' @return
+#' A list of class `"bivq"` containing the following components:
+#' - `data`: The input dataset with an additional `indicator` column, indicating if a observation is above (1) or below (0) the caluclated iso-quant line.
+#' - `tau`: The quantile level used.
+#' - `plvar2`: The bivariate quantile curve points for `var2`.
+#' - `faz`: The extreme values for the quantile curve on the lower end.
+#' - `faa`: The extreme values for the quantile curve on the upper end.
+#' - `var1`: The name of the first variable.
+#' - `var2`: The name of the second variable.
+#'
+#' @examples
+#' # Example dataset
+#' data("nutritionpoverty")
+#' bivqfun(data = nutritionpoverty, var1="NUval", var2="INval", tau = 0.25)
+#'
+#' @importFrom stats approxfun
+#' @export
 bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
 
   # Input checks:
@@ -39,16 +76,16 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
   faa <- c(max(data[[var1]], na.rm = TRUE) + 1, min(bivhhi[, 2]))
   plvar2 <- rbind(faz, bivhhi, faa)
 
-  # Calculate abovevar2 indicator
-  data$abovevar2 <- rep(0, nrow(data))
+  # Calculate indicator indicator
+  data$indicator <- rep(0, nrow(data))
   for (i in 1:nrow(data)) {
     x <- c(data[[var1]][i], data[[var2]][i])
     if (all(x[1] > plvar2[, 1])) {
-      data$abovevar2[i] <- 0
+      data$indicator[i] <- 0
     } else {
       ind <- min(which(x[1] <= plvar2[, 1]))
       if (x[2] > plvar2[ind, 2]) {
-        data$abovevar2[i] <- 1
+        data$indicator[i] <- 1
       }
     }
   }
@@ -68,39 +105,3 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
 }
 
 
-plot.bivq <- function(x, ...) {
-  data <- x$data
-  tau <- x$tau
-  plvar2 <- x$plvar2
-  faz <- x$faz
-  faa <- x$faa
-  var1 <- x$var1
-  var2 <- x$var2
-
-  dbvar2 <- subset(data, abovevar2 == 0)
-  davar2 <- subset(data, abovevar2 == 1)
-
-  plot(
-    plvar2[, 1], plvar2[, 2], type = "l", col = "black", lwd = 3,
-    xlab = "Variable 1", ylab = "Variable 2",
-    xlim = c(min(dbvar2[[var1]]) * 0.9, faa[1] * 1.1),
-    ylim = c(0, faz[2]),
-    main = paste("Bivariate relative discriminator with given tau of", tau)
-  )
-
-  points(dbvar2[[var1]], dbvar2[[var2]], col = "blue")
-  points(davar2[[var1]], davar2[[var2]], col = "darkgreen")
-
-  abline(v = faz[[1]], col = "black", lwd = 3)
-  abline(h = faa[[2]], col = "black", lwd = 3)
-  lines(plvar2[, 1], plvar2[, 2], col = "black", lwd = 3)
-}
-
-#
-# data("nutritionpoverty")
-#
-# # Calculate values and store them in an object
-# result <- bivqfun(nutritionpoverty, "NUval", "INval", tau = 0.5, nalpha = 100)
-#
-# # Plot the result
-# plot(result)
