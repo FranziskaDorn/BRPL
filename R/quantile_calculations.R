@@ -1,5 +1,6 @@
 #' Prepare Quantile Calculations
-#' 
+#'
+#' @importFrom stats approxfun quantile na.omit
 #' @param data Data frame with standardized variables
 #' @param tau Quantile level
 #' @param ecdfvar1 ECDF for first variable
@@ -15,7 +16,7 @@ prepquant <- function(data, tau, ecdfvar1, ecdfvar2, nalpha) {
     y1 = numeric(nalpha),
     y2 = numeric(nalpha)
   )
-  
+
   for(i in seq_along(alphas)) {
     alpha <- alphas[i]
     rsample <- pmin(

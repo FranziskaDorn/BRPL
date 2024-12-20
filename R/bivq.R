@@ -1,5 +1,6 @@
 #' Calculate Bivariate Quantiles
-#' 
+#'
+#' @importFrom stats approxfun quantile na.omit
 #' @param data Input data frame
 #' @param var1 Name of first variable
 #' @param var2 Name of second variable
@@ -15,22 +16,22 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
     "Tau argument has to be given as a numeric" = is.numeric(tau),
     "Input datasource should be a dataframe." = is.data.frame(data)
   )
-  
+
   # Calculate ECDFs
   ecdfvar1 <- myecdf(data, var1)
   ecdfvar2 <- myecdf(data, var2)
-  
+
   # Standardize variables
   data$y1 <- ecdfvar1$ecdf(data[[var1]])
   data$y2 <- ecdfvar2$ecdf(data[[var2]])
-  
+
   # Calculate quantiles
   res <- prepquant(data, tau, ecdfvar1, ecdfvar2, nalpha)
-  
+
   # Create interpolation functions
   bivqf <- approxfun(res$y1, res$y2, ties = "max")
   bivqforig <- approxfun(res$var1, res$var2, ties = "max")
-  
+
   # Generate bivariate quantile curve
   bivqcurve <- data.frame(
     var1 = seq(min(data[[var1]]), max(data[[var1]]), length = 250),
@@ -38,13 +39,13 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
   )
   bivqcurve$y2 <- bivqf(bivqcurve$y1)
   bivqcurve$var2 <- bivqforig(bivqcurve$var1)
-  
+
   # Remove NAs and include extreme values
   bivhhi <- na.omit(data.frame(cbind(bivqcurve$var1, bivqcurve$var2)))
   faz <- c(min(bivhhi[, 1]), max(data[[var2]], na.rm = TRUE))
   faa <- c(max(data[[var1]], na.rm = TRUE) + 1, min(bivhhi[, 2]))
   plvar2 <- rbind(faz, bivhhi, faa)
-  
+
   # Calculate indicators
   data$indicator <- vapply(seq_len(nrow(data)), function(i) {
     x <- c(data[[var1]][i], data[[var2]][i])
@@ -52,7 +53,7 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
     ind <- min(which(x[1] <= plvar2[, 1]))
     ifelse(x[2] > plvar2[ind, 2], 1, 0)
   }, numeric(1))
-  
+
   # Create and return BivQPlot object
   new("BivQPlot",
       data = data,
