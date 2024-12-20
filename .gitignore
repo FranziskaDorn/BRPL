@@ -1,1 +1,8 @@
 .Rproj.user
+.DS_Store
+data/.DS_Store
+# File: tests/testthat.R
+library(testthat)
+library(bivquant)  # Replace with your actual package name
+
+test_check("bivquant")  # Replace with your actual package name
