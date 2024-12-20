@@ -1,6 +1,7 @@
 #' Calculate Bivariate Quantiles
 #'
-#' @importFrom stats approxfun quantile na.omit
+#' @importFrom stats approxfun na.omit
+#' @importFrom methods new
 #' @param data Input data frame
 #' @param var1 Name of first variable
 #' @param var2 Name of second variable
@@ -14,7 +15,11 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
     "Name of the first variable argument must be given as a character." = is.character(var1),
     "Name of the second variable argument must be given as a character." = is.character(var2),
     "Tau argument has to be given as a numeric" = is.numeric(tau),
-    "Input datasource should be a dataframe." = is.data.frame(data)
+    "Input datasource should be a dataframe." = is.data.frame(data),
+    "Empty input datasource." = exists(data),
+    "No input given as first discriminant variable." = exists(var1),
+    "No input given as second discriminant variable." = exists(var2),
+    "Input data needs more than just one observation pair." = (nrow(data) > 2)
   )
 
   # Calculate ECDFs

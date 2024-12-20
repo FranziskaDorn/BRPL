@@ -1,6 +1,6 @@
 #' Prepare Quantile Calculations
 #'
-#' @importFrom stats approxfun quantile na.omit
+#' @importFrom stats quantile
 #' @param data Data frame with standardized variables
 #' @param tau Quantile level
 #' @param ecdfvar1 ECDF for first variable
