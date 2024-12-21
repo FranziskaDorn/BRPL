@@ -1,0 +1,40 @@
+---
+title: "introduction-to-bivquant"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction-to-bivquant}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Overview
+
+This vignette introduces the `bivquant` package and demonstrates its main functionality.
+
+## Installation
+
+You can install the development version from GitHub:
+```r
+devtools::install_github("RMKruse/bivarte-discriminant-package")
+```
+
+## Example usage
+
+```r
+library(bivquant)
+data("nutritionpoverty")
+
+# Perform bivariate discriminant analysis
+result <- bivqfun(data = nutritionpoverty, var1 = "NUval", var2 = "INval", tau = 0.25)
+
+# Visualize the result
+plot(result)
+```
