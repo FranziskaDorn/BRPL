@@ -22,3 +22,19 @@ setClass("BivQ",
 setClass("BivQPlot",
          contains = "BivQ"
 )
+
+#' @title BivQSummary Class
+#' @description Class for summarizing bivariate quantile results
+#' @exportClass BivQSummary
+setClass("BivQSummary",
+         contains = "BivQ",
+         slots = list(
+           mean_var1 = "numeric",
+           mean_var2 = "numeric",
+           sd_var1 = "numeric",
+           sd_var2 = "numeric",
+           data_group0 = "data.frame",
+           data_group1 = "data.frame",
+           n_outliers = "numeric"
+         )
+)

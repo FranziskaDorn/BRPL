@@ -42,3 +42,53 @@ setMethod("plot", "BivQPlot",
                   col = 'black')
           }
 )
+
+
+#' Create summary for BivQ object
+#' @param object BivQ object
+#' @return BivQSummary object
+#' @export
+setMethod("summary", "BivQ",
+          function(object) {
+            # Berechne Zusammenfassung
+            mean_var1 <- mean(object@data[[object@var1]], na.rm = TRUE)
+            mean_var2 <- mean(object@data[[object@var2]], na.rm = TRUE)
+            sd_var1 <- sd(object@data[[object@var1]], na.rm = TRUE)
+            sd_var2 <- sd(object@data[[object@var2]], na.rm = TRUE)
+            data_group0 <- tt@data[tt@data$indicator==0, ]
+            data_group1 <- tt@data[tt@data$indicator==1, ]
+            n_outliers <- sum(object@data$indicator == 1, na.rm = TRUE)
+            
+            # Erstelle neues Summary-Objekt
+            new("BivQSummary",
+                data = object@data,
+                tau = object@tau,
+                var1 = object@var1,
+                var2 = object@var2,
+                plvar2 = object@plvar2,
+                faz = object@faz,
+                faa = object@faa,
+                mean_var1 = mean_var1,
+                mean_var2 = mean_var2,
+                sd_var1 = sd_var1,
+                sd_var2 = sd_var2,
+                data_group0 = data_group0,
+                data_group1 = data_group1,
+                n_outliers = n_outliers)
+          })
+
+#' @export
+setMethod("show", "BivQSummary",
+          function(object) {
+            cat("Bivariate Quantile Summary\n")
+            cat("==========================\n")
+            cat(sprintf("Tau: %.2f\n", object@tau))
+            cat("\nVariable Statistics:\n")
+            cat(sprintf("%s:\n", "Below"))
+            cat(sprintf(summary(object@data_group0)))
+            cat(sprintf("  SD:   %.2f\n", object@sd_var1))
+            cat(sprintf("\n%s:\n", "Above"))
+            cat(sprintf("  Mean: %.2f\n", object@mean_var2))
+            cat(sprintf("  SD:   %.2f\n", object@sd_var2))
+            cat(sprintf("\nNumber of outliers: %d\n", object@n_outliers))
+          })

@@ -10,7 +10,7 @@ myecdf <- function(data, var, min.var = 0) {
   stopifnot(
     "Name of the variable argument must be given as a character." = is.character(var),
     "Input datasource should be a dataframe." = is.data.frame(data),
-    "No input given as discriminant variable." = !exists(var),
+    #"No input given as discriminant variable." = !exists(var),
     "Input data needs more than just one observation pair." = (nrow(data) > 2)
   )
 
