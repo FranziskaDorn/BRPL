@@ -16,9 +16,8 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
     "Name of the second variable argument must be given as a character." = is.character(var2),
     "Tau argument has to be given as a numeric" = is.numeric(tau),
     "Input datasource should be a dataframe." = is.data.frame(data),
-    "Empty input datasource." = exists(data),
-    "No input given as first discriminant variable." = exists(var1),
-    "No input given as second discriminant variable." = exists(var2),
+    "No input given as first discriminant variable." = !exists(var1),
+    "No input given as second discriminant variable." = !exists(var2),
     "Input data needs more than just one observation pair." = (nrow(data) > 2)
   )
 
