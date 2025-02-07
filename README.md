@@ -16,12 +16,10 @@ You can install the development version of `BRPL` from [GitHub](https://github.c
 To install BRPL, you first need to have the `devtools` package installed. 
 If you don't have it yet, you can install it using:
 
-
 ```r
 # Install devtools if you haven't already
 install.packages("devtools")
 ```
-
 Then, you can install BRPL from GitHub using:
 
 ```r
@@ -38,6 +36,7 @@ BRPL provides several key functions for performing bivariate response profile le
 
 `summary_brpl()`: This function provides a summary of the BRPL results, including the number of identified subgroups, the proportion of individuals in each subgroup, and the overall model fit.
 
+```
 
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -51,6 +50,7 @@ Here’s a basic example demonstrating how to use the main function of the BRPL 
 # Load the BRPL package
 library(BRPL)
 
+
 # Load the example dataset
 data("nutritionpoverty")
 
@@ -62,6 +62,7 @@ summary_brpl(results)
 
 # Plot the results
 plot_profiles(result)
+
 ```
 
 This example utilizes the nutritionpoverty dataset included in the package and applies the bivqfun function to analyze the relationship between the variables NUval (nutrition value) and INval (income value) with a specified threshold (tau) of 0.25.
@@ -94,6 +95,7 @@ If you have any questions or suggestions, please feel free to contact the mainta
 
 Franziska Dorn: [insert email address here]
 Contributions to BRPL are welcome! If you would like to contribute, please submit a pull request on GitHub.
+
 
 ## Acknowledgments
 
