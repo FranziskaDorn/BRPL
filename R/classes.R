@@ -1,7 +1,7 @@
-#' @title BivQ Class
+#' @title brpl Class
 #' @description Base class for bivariate quantile calculations
-#' @exportClass BivQ
-setClass("BivQ",
+#' @exportClass brpl
+setClass("brpl",
          slots = list(
            data = "data.frame",
            tau = "numeric",
@@ -16,9 +16,9 @@ setClass("BivQ",
          )
 )
 
-#' @title BivQPlot Class
+#' @title brplPlot Class
 #' @description Class for plotting bivariate quantile results
-#' @exportClass BivQPlot
-setClass("BivQPlot",
-         contains = "BivQ"
+#' @exportClass brplPlot
+setClass("brplPlot",
+         contains = "brpl"
 )

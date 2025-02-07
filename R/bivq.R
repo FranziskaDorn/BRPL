@@ -7,9 +7,9 @@
 #' @param var2 Name of second variable
 #' @param tau Quantile level (default: 0.5)
 #' @param nalpha Number of alpha values (default: 100)
-#' @return An object of class BivQPlot
+#' @return An object of class brplPlot
 #' @export
-bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
+brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
   # Input validation
   stopifnot(
     "Name of the first variable argument must be given as a character." = is.character(var1),
@@ -59,7 +59,7 @@ bivqfun <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
   }, numeric(1))
 
   # Create and return BivQPlot object
-  new("BivQPlot",
+  new("brplPlot",
       data = data,
       tau = tau,
       var1 = var1,

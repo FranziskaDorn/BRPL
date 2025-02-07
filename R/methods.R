@@ -1,10 +1,10 @@
-#' Plot Method for BivQPlot Class
+#' Plot Method for brplPlot Class
 #'
-#' This method defines the plotting behavior for objects of the class `BivQPlot`. It generates a
+#' This method defines the plotting behavior for objects of the class `brplPlot`. It generates a
 #' scatter plot visualizing the relationship between two variables (`var1` and `var2`) along with
 #' classification indicators and an additional line for further insights.
 #'
-#' @param x An object of class `BivQPlot`. The object must include the following slots:
+#' @param x An object of class `brplPlot`. The object must include the following slots:
 #'   - `@data`: A data frame containing the data to be plotted, including `var1`, `var2`,
 #'     and a classification indicator `indicator`.
 #'   - `@var1`: A string specifying the name of the first variable to be plotted (X-axis).
@@ -29,7 +29,7 @@
 #' @return This function does not return a value. It generates a plot as a side effect.
 #'
 #' @export
-setMethod("plot", "BivQPlot",
+setMethod("plot", "brplPlot",
           function(x, y, ...) {
             # Plot implementation here
             plot(x@data[[x@var1]], x@data[[x@var2]],
