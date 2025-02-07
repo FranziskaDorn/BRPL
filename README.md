@@ -34,9 +34,9 @@ BRPL provides several key functions for performing bivariate response profile le
 
 `brpl()`: This function performs the core Profile Learning analysis. It takes a data frame of individual response data as input and returns a list of results, including the identified subgroups, their characteristic response patterns of each subgroup.
 
-`plot_profiles()`: This function visualizes the identified subgroups and their response patterns. It generates a plot that shows the mean response of each subgroup across the different items or time points, along with confidence intervals or credible intervals.
+`plot()`: This function visualizes the identified subgroups and their response patterns. It generates a plot that shows the mean response of each subgroup across the different items or time points, along with confidence intervals or credible intervals.
 
-`summary_brpl()`: This function provides a summary of the BRPL results, including the number of identified subgroups, the proportion of individuals in each subgroup, and the overall model fit.
+`summary()`: This function provides a summary of the BRPL results, including the number of identified subgroups, the proportion of individuals in each subgroup, and the overall model fit.
 
 
 
@@ -58,10 +58,10 @@ data("nutritionpoverty")
 result <- brpl(data = nutritionpoverty, var1 = "NUval", var2 = "INval", tau = 0.25)
 
 # Print a summary of the results
-summary_brpl(results)
+summary(results)
 
 # Plot the results
-plot_profiles(result)
+plot(result)
 ```
 
 This example utilizes the nutritionpoverty dataset included in the package and applies the bivqfun function to analyze the relationship between the variables NUval (nutrition value) and INval (income value) with a specified threshold (tau) of 0.25.
