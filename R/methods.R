@@ -37,8 +37,10 @@ setMethod("plot", "BivQPlot",
                  ylab = x@var2,
                  col = ifelse(x@data$indicator == 1, 'darkgreen', 'blue'),
                  main = paste("Bivariate relative discriminator with given tau of", x@tau))
+            abline(v = x@faz[[1]], col = "black", lwd = 3)
+            abline(h = x@faa[[2]], col = "black", lwd = 3)
             lines(x@plvar2[,1], x@plvar2[,2],
                   lwd = 3,
-                  col = 'black')
+                  col = 'red')
           }
 )
