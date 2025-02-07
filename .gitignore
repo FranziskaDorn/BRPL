@@ -5,3 +5,5 @@ data/.DS_Store
 inst/doc
 bivquant.Rproj
 misc/dev_file.R
+BRPL/.Rhistory
+BRPL/.Rbuildignore
