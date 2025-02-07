@@ -1,20 +1,20 @@
-# bivquant
+# BRPL
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/bivquant)](https://CRAN.R-project.org/package=bivquant)
+[![CRAN status](https://www.r-pkg.org/badges/version/BRPL)](https://CRAN.R-project.org/package=BRPL)
 
-The goal of `bivquant` is to provide tools for bivariate discriminant analysis, focusing on the relationship between variable indicators. This package offers functions to analyze and visualize the interplay between two variables, aiding in the understanding of social sustainability metrics.
+The goal of `BRPL` is to provide tools for bivariate discriminant analysis, focusing on the relationship between variable indicators. This package offers functions to analyze and visualize the interplay between two variables, aiding in the understanding of social sustainability metrics.
 
 ## Installation
 
-You can install the development version of `bivquant` from [GitHub](https://github.com/RMKruse/bivarte-discriminant-package) with:
+You can install the development version of `BRPL` from [GitHub](https://github.com/FranziskaDorn/BRPL) with:
 
 ```r
 # Install devtools if you haven't already
 install.packages("devtools")
 
-# Install bivquant package
-devtools::install_github("RMKruse/bivarte-discriminant-package")
+# Install BRPL package
+devtools::install_github("FranziskaDorn/BRPL")
 ```
 
 
@@ -24,11 +24,11 @@ devtools::install_github("RMKruse/bivarte-discriminant-package")
 
 ## Example
 
-Here’s a basic example demonstrating how to use the main function of the bivquant package:
+Here’s a basic example demonstrating how to use the main function of the BRPL package:
 
 ``` r
-# Load the bivquant package
-library(bivquant)
+# Load the BRPL package
+library(BRPL)
 
 # Load the example dataset
 data("nutritionpoverty")
