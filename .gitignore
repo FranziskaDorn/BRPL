@@ -3,3 +3,5 @@
 data/.DS_Store
 *.Rproj
 inst/doc
+bivquant.Rproj
+misc/dev_file.R
