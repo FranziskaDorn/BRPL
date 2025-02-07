@@ -73,7 +73,7 @@ This example utilizes the nutritionpoverty dataset included in the package and a
 
 BRPL offers several advantages over other methods for subgroup identification:
 
-- Bayesian approach: BRPL uses a approach, which allows the estimation of subgroup parameters.
+- Approach: BRPL uses a approach, which allows the estimation of subgroup parameters.
 - Flexibility: BRPL can handle various types of response data, including continuous, binary, and count data.
 - Interpretability: BRPL provides clear and interpretable results, making it easy to understand the identified subgroups and their response patterns.
 
