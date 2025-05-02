@@ -30,3 +30,4 @@ prepquant <- function(data, tau, ecdfvar1, ecdfvar2, nalpha) {
   }
   return(res)
 }
+

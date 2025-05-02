@@ -41,3 +41,4 @@ myecdf <- function(data, var, min.var = 0) {
 
   return(list(ecdf = ecdf, qf = qf))
 }
+

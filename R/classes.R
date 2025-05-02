@@ -22,3 +22,4 @@ setClass("brpl",
 setClass("brplPlot",
          contains = "brpl"
 )
+

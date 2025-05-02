@@ -15,7 +15,7 @@
 #' @param y Ignored. Included for compatibility with the generic `plot` function.
 #' @param ... Additional arguments passed to the base R `plot` function.
 #'
-#' @importFrom graphics lines
+#' @importFrom graphics lines abline
 #'
 #' @details
 #' This method creates:
@@ -44,3 +44,4 @@ setMethod("plot", "brplPlot",
                   col = 'red')
           }
 )
+
