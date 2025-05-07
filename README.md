@@ -67,7 +67,7 @@ plot(result)
 This example utilizes the nutritionpoverty dataset included in the package and applies the bivqfun function to analyze the relationship between the variables NUval (nutrition value) and INval (income value) with a specified threshold (tau) of 0.25.
 
 
-
+<img src="man/figures/README-example.png" width="100%" />
 
 ## Advantages and Distinguishing Features
 
