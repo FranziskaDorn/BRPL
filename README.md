@@ -45,17 +45,20 @@ BRPL provides several key functions for performing bivariate response profile le
 
 ## Example
 
-Here’s a basic example demonstrating how to use the main function of the BRPL package:
+This example utilizes the unweighted 2018 Mexican Survey of Households, Incomes and Expenses (ENIGH).  It applies the brpl function to analyze the relationship between the variables income and leisure time with a specified threshold (tau) of 0.15. These specifications are based on Dorn et al. (2024). 
+
+
+*Dorn, F., Radice, R., Marra, G., & Kneib, T. (2024). A bivariate relative poverty line for leisure time and income poverty: Detecting intersectional differences using distributional copulas. Review of Income and Wealth, 70(2), 395-419.*
 
 ``` r
 # Load the BRPL package
 library(BRPL)
 
 # Load the example dataset
-data("nutritionpoverty")
+data("pov_line_example")
 
 # Perform bivariate discriminant analysis
-result <- brpl(data = nutritionpoverty, var1 = "NUval", var2 = "INval", tau = 0.25)
+result <- brpl(data = pov_line_example, var1 = "leisure", var2 = "inc_expenses", tau = 0.15)
 
 # Print a summary of the results
 summary(results)
@@ -64,7 +67,7 @@ summary(results)
 plot(result)
 ```
 
-This example utilizes the nutritionpoverty dataset included in the package and applies the bivqfun function to analyze the relationship between the variables NUval (nutrition value) and INval (income value) with a specified threshold (tau) of 0.25.
+This example utilizes the pov_line_example dataset included in the package and applies the brpl function to analyze the relationship between the variables leisure (leisure time in minutes) and inc_expenses (income expenses) with a specified threshold (tau) of 0.15.
 
 
 <img src="man/figures/README-example.png" width="100%" />
