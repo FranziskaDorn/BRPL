@@ -1,6 +1,6 @@
 Package: BRPL
 Title: Methods for Bivariate Poverty Line Calculations
-Version: 0.1.2.0000
+Version: 0.1.2
 Authors@R: 
     c(
       person("Franziska", "Dorn", email = "franziska.dorn@uni-due.de", role = c("aut", "cre")),
@@ -14,10 +14,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     graphics,
-    methods,
-    knitr,
-    rmarkdown
-VignetteBuilder: knitr
+    methods
 Depends: 
     R (>= 3.5.0)
 LazyData: true
