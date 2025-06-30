@@ -9,18 +9,6 @@
 #' @param nalpha Number of alpha values (default: 100)
 #' @return An object of class brplPlot
 #' @export
-#' @examples
-#' Load example dataset
-#' load("pov_line_example.rda")
-#' 
-#' # Calculate the brpl
-#' result <- brpl(data = data, var1="leisure", var2="inc_expenses", tau = 0.15)
-#' 
-#' # Inspect result
-#' print(result)
-#' 
-#' # Optional: Plot if plot method is defined
-#' plot(result)
 brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
   # Input validation
   stopifnot(
