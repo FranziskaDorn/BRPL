@@ -7,7 +7,7 @@ Authors@R:
       person("René-Marcel", "Kruse", role = c("aut")),
       person("Thomas", "Kneib", role = c("aut"))
     )
-Description: BRPL is an R package that provides methods for identifying subgroups within populations based on their individual response patterns to a specific intervention or treatment. It enables researchers and clinicians to investigate heterogeneous treatment effects and develop personalized therapy approaches, offering functions to analyze and visualize the interplay between two variables, aiding in the understanding of social sustainability metrics. The overall goal of BRPL is to provide tools for bivariate discriminant analysis, focusing on the relationship between variable indicators.
+Description: Provides tools for identifying subgroups within populations based on individual response patterns to specific interventions or treatments. Designed to support researchers and clinicians in exploring heterogeneous treatment effects and developing personalized therapeutic strategies. Offers functionality for analyzing and visualizing the interplay between two variables, thereby enhancing the interpretation of social sustainability metrics. The package focuses on bivariate discriminant analysis and aims to clarify relationships between indicator variables.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
