@@ -1,6 +1,6 @@
 Package: BRPL
 Title: Methods for Bivariate Poverty Line Calculations
-Version: 0.1.2
+Version: 1.0.2
 Authors@R: 
     c(
       person("Franziska", "Dorn", email = "franziska.dorn@uni-due.de", role = c("aut", "cre")),
