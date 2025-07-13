@@ -23,3 +23,7 @@ An object of class brplPlot
 \description{
 Calculate Bivariate Quantiles
 }
+\examples{
+df_data <- data.frame(x = 1:10, y = 1:10)
+result <- brpl(df_data, "x", "y")
+}

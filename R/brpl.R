@@ -9,6 +9,9 @@
 #' @param tau Quantile level (default: 0.5)
 #' @param nalpha Number of alpha values (default: 100)
 #' @return An object of class brplPlot
+#' @examples
+#' df_data <- data.frame(x = 1:10, y = 1:10)
+#' result <- brpl(df_data, "x", "y")
 #' @export
 brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
   # Convert tibble or other data.frame variants to pure data.frame if necessary
