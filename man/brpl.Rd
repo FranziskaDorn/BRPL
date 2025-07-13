@@ -7,7 +7,7 @@
 brpl(data, var1, var2, tau = 0.5, nalpha = 100)
 }
 \arguments{
-\item{data}{Input data frame}
+\item{data}{Input data frame (tibbles and other data.frame variants are automatically converted to data.frame)}
 
 \item{var1}{Name of first variable}
 

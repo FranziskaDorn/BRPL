@@ -2,7 +2,8 @@
 #'
 #' @importFrom stats approxfun na.omit
 #' @importFrom methods new
-#' @param data Input data frame
+#' @importFrom utils hasName
+#' @param data Input data frame (tibbles and other data.frame variants are automatically converted to data.frame)
 #' @param var1 Name of first variable
 #' @param var2 Name of second variable
 #' @param tau Quantile level (default: 0.5)
@@ -10,14 +11,22 @@
 #' @return An object of class brplPlot
 #' @export
 brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
+  # Convert tibble or other data.frame variants to pure data.frame if necessary
+  # This ensures compatibility with S4 class validation
+  if (!identical(class(data), "data.frame")) {
+    if (inherits(data, "data.frame")) {
+      data <- as.data.frame(data)
+    }
+  }
+  
   # Input validation
   stopifnot(
     "Name of the first variable argument must be given as a character." = is.character(var1),
     "Name of the second variable argument must be given as a character." = is.character(var2),
     "Tau argument has to be given as a numeric" = is.numeric(tau),
     "Input datasource should be a dataframe." = is.data.frame(data),
-    "No input given as first discriminant variable." = !exists(var1),
-    "No input given as second discriminant variable." = !exists(var2),
+    "First variable not found in data." = var1 %in% colnames(data),
+    "Second variable not found in data." = var2 %in% colnames(data),
     "Input data needs more than just one observation pair." = (nrow(data) > 2)
   )
 
