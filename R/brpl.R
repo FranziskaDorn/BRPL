@@ -8,12 +8,18 @@
 #' @param var2 Name of second variable
 #' @param tau Quantile level (default: 0.5)
 #' @param nalpha Number of alpha values (default: 100)
+#' @param weight Character string naming the weight column in \code{data}, or
+#'   \code{NULL} (default) for uniform weights (equivalent to unweighted analysis).
 #' @return An object of class brplPlot
 #' @examples
 #' df_data <- data.frame(x = 1:10, y = 1:10)
 #' result <- brpl(df_data, "x", "y")
+#'
+#' # With sample weights
+#' df_w <- data.frame(x = 1:10, y = 1:10, w = runif(10))
+#' result_w <- brpl(df_w, "x", "y", weight = "w")
 #' @export
-brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
+brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100, weight = NULL) {
   # Convert tibble or other data.frame variants to pure data.frame if necessary
   # This ensures compatibility with S4 class validation
   if (!identical(class(data), "data.frame")) {
@@ -21,7 +27,7 @@ brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
       data <- as.data.frame(data)
     }
   }
-  
+
   # Input validation
   stopifnot(
     "Name of the first variable argument must be given as a character." = is.character(var1),
@@ -30,19 +36,25 @@ brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
     "Input datasource should be a dataframe." = is.data.frame(data),
     "First variable not found in data." = var1 %in% colnames(data),
     "Second variable not found in data." = var2 %in% colnames(data),
-    "Input data needs more than just one observation pair." = (nrow(data) > 2)
+    "Input data needs more than just one observation pair." = (nrow(data) > 2),
+    "weight must be NULL or a column name in data." =
+      is.null(weight) || (is.character(weight) && weight %in% colnames(data))
   )
 
-  # Calculate ECDFs
-  ecdfvar1 <- myecdf(data, var1)
-  ecdfvar2 <- myecdf(data, var2)
+  # Attach normalized weights as reserved column
+  w <- if (is.null(weight)) rep(1 / nrow(data), nrow(data)) else data[[weight]]
+  data$.brpl_weight <- w / sum(w)
+
+  # Calculate weighted ECDFs
+  ecdfvar1 <- myecdf(data, var1, weight = ".brpl_weight")
+  ecdfvar2 <- myecdf(data, var2, weight = ".brpl_weight")
 
   # Standardize variables
   data$y1 <- ecdfvar1$ecdf(data[[var1]])
   data$y2 <- ecdfvar2$ecdf(data[[var2]])
 
   # Calculate quantiles
-  res <- prepquant(data, tau, ecdfvar1, ecdfvar2, nalpha)
+  res <- prepquant(data, tau, ecdfvar1, ecdfvar2, nalpha, weights = data$.brpl_weight)
 
   # Create interpolation functions
   bivqf <- approxfun(res$y1, res$y2, ties = "max")
@@ -80,4 +92,3 @@ brpl <- function(data, var1, var2, tau = 0.5, nalpha = 100) {
       faz = faz,
       faa = faa)
 }
-
